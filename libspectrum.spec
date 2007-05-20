@@ -1,6 +1,6 @@
 %define name    libspectrum
-%define version 0.2.1
-%define release 1mdk
+%define version 0.3.0.1
+%define release %mkrel 1
 
 %define libname %mklibname spectrum 2
 %define libname_devel %mklibname -d spectrum 2
@@ -12,7 +12,7 @@ Version: %{version}
 Release: %{release}
 License: GPL
 URL: http://www.srcf.ucam.org/~pak21/spectrum/libspectrum.html
-Source: http://www.srcf.ucam.org/~pak21/spectrum/%{name}-%{version}.tar.bz2
+Source: http://www.srcf.ucam.org/~pak21/spectrum/%{name}-%{version}.tar.gz
 Group: System/Libraries
 BuildRequires: libz-devel libgcrypt-devel libglib-devel perl
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
