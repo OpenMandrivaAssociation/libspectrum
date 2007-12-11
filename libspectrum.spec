@@ -37,7 +37,7 @@ images and .rzx input recording files.
 Using the libspectrum API requires to use the libspectrum library.
 
 %package -n %{libname_devel}
-Summary: Development files for programs which will use the libspectrum library.
+Summary: Development files for programs which will use the libspectrum library
 Group: Development/C
 Requires: %{libname} = %{version}-%{release}
 Provides: %{name}-devel = %{version}-%{release}
@@ -51,7 +51,7 @@ use the libspectrum library functions. You'll also need to install the
 libspectrum package.
 
 %package -n %{libname_static_devel}
-Summary: Static libraries for programs which will use the libspectrum library.
+Summary: Static libraries for programs which will use the libspectrum library
 Group: Development/C
 Requires: %{libname} = %{version}-%{release}
 Provides: %{name}-static-devel = %{version}-%{release}
