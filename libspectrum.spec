@@ -15,7 +15,6 @@ URL: http://www.srcf.ucam.org/~pak21/spectrum/libspectrum.html
 Source: http://www.srcf.ucam.org/~pak21/spectrum/%{name}-%{version}.tar.gz
 Group: System/Libraries
 BuildRequires: libz-devel libgcrypt-devel libglib-devel perl
-BuildRoot: %{_tmppath}/%{name}-%{version}-root
 
 %description
 libspectrum is a fairly simple library designed to make the handling
