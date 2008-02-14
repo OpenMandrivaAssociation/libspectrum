@@ -14,6 +14,7 @@ License: GPL
 URL: http://www.srcf.ucam.org/~pak21/spectrum/libspectrum.html
 Source: http://www.srcf.ucam.org/~pak21/spectrum/%{name}-%{version}.tar.gz
 Group: System/Libraries
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildRequires: libz-devel libgcrypt-devel libglib-devel perl
 
 %description
