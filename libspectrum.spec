@@ -1,6 +1,6 @@
 %define name    libspectrum
 %define version 0.3.0.1
-%define release %mkrel 1
+%define release %mkrel 3
 
 %define libname %mklibname spectrum 2
 %define libname_devel %mklibname -d spectrum 2
