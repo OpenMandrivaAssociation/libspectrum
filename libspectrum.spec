@@ -20,6 +20,8 @@ BuildRequires:	libz-devel
 BuildRequires:	libgcrypt-devel >= 1.1.42
 BuildRequires:	libglib2-devel
 BuildRequires:	perl
+BuildRequires:	autoconf
+BuildRequires:  audiofile-devel >= 0.2.3
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -74,6 +76,7 @@ files to allow you to develop with libspectrum.
 %setup -q
 
 %build
+autoreconf
 %configure
 %make
 
