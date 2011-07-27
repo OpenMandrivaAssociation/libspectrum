@@ -1,68 +1,74 @@
-%define name    libspectrum
-%define version 0.3.0.1
-%define release %mkrel 4
+Name:			libspectrum
+Version: 		1.0.0
+Release:		%mkrel 1
 
-%define libname %mklibname spectrum 2
-%define libname_devel %mklibname -d spectrum 2
-%define libname_static_devel %mklibname -s -d spectrum 2
+%define lib_major	8
+%define lib_name	%mklibname spectrum %{lib_major}
+%define devel_name	%mklibname spectrum -d
+%define old_lib_name	%mklibname spectrum 7
+%define older_lib_name	%mklibname spectrum 5
+%define oldest_lib_name	%mklibname spectrum 2
+%define old_devel_name	%mklibname spectrum 2 -d
 
-Name: %{name}
-Summary: A library to make the input and output of ZX Spectrum emulator files easier
-Version: %{version}
-Release: %{release}
-License: GPL
-URL: http://www.srcf.ucam.org/~pak21/spectrum/libspectrum.html
-Source: http://www.srcf.ucam.org/~pak21/spectrum/%{name}-%{version}.tar.gz
-Group: System/Libraries
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRequires: libz-devel libgcrypt-devel libglib-devel perl
+Summary:	Library to make the input and output of ZX Spectrum emulator files easier
+License:	GPLv2+
+Group:		System/Libraries
+URL:		http://fuse-emulator.sourceforge.net/
+Source0:	http://prdownloads.sourceforge.net/fuse-emulator/%{name}-%{version}.tar.gz
+
+BuildRequires:	libz-devel
+BuildRequires:	libgcrypt-devel >= 1.1.42
+BuildRequires:	libglib2-devel
+BuildRequires:	perl
+BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 libspectrum is a fairly simple library designed to make the handling
 of various ZX Spectrum emulator-related file formats easy.  So far it
-handles .sna and .z80 snapshots (.sna read only), .tap and .tzx tape
-images and .rzx input recording files.
+handles:
 
-%package -n %{libname}
-Summary: A library to make the input and output of ZX Spectrum emulator files easier
-Group: System/Libraries
-Provides: %{name} = %{version}-%{release}
+* Snapshots: .z80, .szx, .sna (all read/write), .zxs, .sp., .snp and
+  +D snapshots (read only).
+* Tape images: .tzx, .tap (read/write) and Warajevo .tap (read only).
+* Input recordings: .rzx (read/write).
+* Timex cartridges: .dck (read only).
+* IDE hard disk images: .hdf (read/write).
 
-%description -n %{libname}
-libspectrum is a fairly simple library designed to make the handling
-of various ZX Spectrum emulator-related file formats easy.  So far it
-handles .sna and .z80 snapshots (.sna read only), .tap and .tzx tape
-images and .rzx input recording files.
+%package -n %{lib_name}
+Summary:	A library to make the input and output of ZX Spectrum emulator files easier
+Group:		System/Libraries
+Provides:	%{name} = %{version}-%{release}
+Obsoletes:	%{old_lib_name}
+Obsoletes:	%{older_lib_name}
+Obsoletes:	%{oldest_lib_name}
 
-Using the libspectrum API requires to use the libspectrum library.
+%description -n %{lib_name}
+libspectrum is a library which is designed to make the input and
+output of ZX Spectrum emulator files slightly easier than it would be
+otherwise. It should hopefully compile and run on Unix-based systems,
+Win32 and Mac OS X.
 
-%package -n %{libname_devel}
-Summary: Development files for programs which will use the libspectrum library
-Group: Development/C
-Requires: %{libname} = %{version}-%{release}
-Provides: %{name}-devel = %{version}-%{release}
+Currently supported are:
 
-%description -n %{libname_devel}
-This package contains the header files and documentation necessary for
-development of programs that will use the libspectrum library.
+* Snapshots: .z80, .szx, .sna (all read/write), .zxs, .sp., .snp and
+  +D snapshots (read only).
+* Tape images: .tzx, .tap (read/write) and Warajevo .tap (read only).
+* Input recordings: .rzx (read/write).
+* Timex cartridges: .dck (read only).
+* IDE hard disk images: .hdf (read/write).
 
-You should install this package if you need to develop programs which will
-use the libspectrum library functions. You'll also need to install the
-libspectrum package.
+This package provides the libraries to handle ZX Spectrum emulator files.
 
-%package -n %{libname_static_devel}
-Summary: Static libraries for programs which will use the libspectrum library
-Group: Development/C
-Requires: %{libname} = %{version}-%{release}
-Provides: %{name}-static-devel = %{version}-%{release}
+%package -n %{devel_name}
+Summary:	Development files for programs which will use the libspectrum library
+Group:		Development/C
+Requires:	%{lib_name} = %{version}
+Provides:	%{name}-devel = %{version}-%{release}
+Obsoletes:	%{old_devel_name}
 
-%description -n %{libname_static_devel}
-This package contains the static libraries, necessary for development of
-programs that will use the libspectrum library.
-
-You should install this package if you need to develop programs which will
-use the libspectrum library functions. You'll also need to install the
-libspectrum package.
+%description -n %{devel_name}
+This package provides the necessary development libraries and include
+files to allow you to develop with libspectrum.
 
 %prep
 %setup -q
@@ -72,32 +78,28 @@ libspectrum package.
 %make
 
 %install
+rm -rf %{buildroot}
 %makeinstall
+
+%if %mdkversion < 200900
+%post -n %{lib_name} -p /sbin/ldconfig
+%postun -n %{lib_name} -p /sbin/ldconfig
+%endif
 
 %clean
 rm -rf %{buildroot}
 
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
+%files -n %{lib_name}
+%defattr(0644,root,root,0755)
+%_libdir/*.so.*
+%doc ChangeLog THANKS COPYING AUTHORS
 
-%files -n %{libname}
-%defattr(-,root,root)
-%doc ChangeLog README THANKS COPYING AUTHORS
-%{_libdir}/lib*.so.*
-
-%files -n %{libname_devel}
-%defattr(-,root,root)
-%doc COPYING doc/libspectrum.txt
-%{_libdir}/lib*.so
-%{_libdir}/lib*.la
+%files -n %{devel_name}
+%defattr(0644,root,root,0755)
+%doc COPYING README doc/libspectrum.txt
+%{_libdir}/*.a
+%{_libdir}/*.la
+%{_libdir}/*.so
 %{_includedir}/*.h
-%{_mandir}/man3/*
+%{_mandir}/*/*
 
-%files -n %{libname_static_devel}
-%defattr(-,root,root)
-%doc COPYING
-%{_libdir}/lib*.a
