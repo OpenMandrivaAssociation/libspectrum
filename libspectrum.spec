@@ -1,6 +1,6 @@
 Name:			libspectrum
 Version: 		1.0.0
-Release:		%mkrel 1
+Release:		%mkrel 2
 
 %define lib_major	8
 %define lib_name	%mklibname spectrum %{lib_major}
@@ -21,8 +21,7 @@ BuildRequires:	libgcrypt-devel >= 1.1.42
 BuildRequires:	libglib2-devel
 BuildRequires:	perl
 BuildRequires:	autoconf
-BuildRequires:  audiofile-devel >= 0.2.3
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildRequires:	audiofile-devel >= 0.2.3
 
 %description
 libspectrum is a fairly simple library designed to make the handling
@@ -81,27 +80,21 @@ autoreconf
 %make
 
 %install
-rm -rf %{buildroot}
-%makeinstall
-
-%if %mdkversion < 200900
-%post -n %{lib_name} -p /sbin/ldconfig
-%postun -n %{lib_name} -p /sbin/ldconfig
-%endif
+%__rm -rf %{buildroot}
+%makeinstall_std
 
 %clean
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 
 %files -n %{lib_name}
 %defattr(0644,root,root,0755)
-%_libdir/*.so.*
 %doc ChangeLog THANKS COPYING AUTHORS
+%{_libdir}/*.so.*
 
 %files -n %{devel_name}
 %defattr(0644,root,root,0755)
 %doc COPYING README doc/libspectrum.txt
-%{_libdir}/*.a
-%{_libdir}/*.la
+%{_libdir}/*.*a
 %{_libdir}/*.so
 %{_includedir}/*.h
 %{_mandir}/*/*
