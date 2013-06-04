@@ -1,4 +1,4 @@
-%define major	9
+%define major	8
 %define libname	%mklibname spectrum %{major}
 %define devname	%mklibname spectrum -d
 
