@@ -5,7 +5,7 @@
 Summary:	Library to work with ZX Spectrum emulator files
 Name:		libspectrum
 Version:	1.1.1
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	GPLv2+
 Url:		http://fuse-emulator.sourceforge.net/
