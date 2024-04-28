@@ -4,14 +4,14 @@
 
 Summary:	Library to work with ZX Spectrum emulator files
 Name:		libspectrum
-Version:	1.1.1
-Release:	2
+Version:	1.5.0
+Release:	1
 Group:		System/Libraries
 License:	GPLv2+
-Url:		http://fuse-emulator.sourceforge.net/
-Source0:	http://prdownloads.sourceforge.net/fuse-emulator/%{name}-%{version}.tar.gz
-BuildRequires:	bzip2-devel
-BuildRequires:	libgcrypt-devel >= 1.1.42
+Url:		https://fuse-emulator.sourceforge.net/
+Source0:	https://prdownloads.sourceforge.net/fuse-emulator/%{name}-%{version}.tar.gz
+BuildRequires:	pkgconfig(bzip2)
+BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(audiofile)
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(zlib)
@@ -64,11 +64,11 @@ files to allow you to develop with libspectrum.
 
 %build
 autoreconf
-%configure2_5x --disable-static
-%make
+%configure --disable-static
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 %files -n %{libname}
 %{_libdir}/libspectrum.so.%{major}*
