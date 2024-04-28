@@ -1,5 +1,7 @@
-%define major	8
-%define libname	%mklibname spectrum %{major}
+%define major	9
+# 8 was the last major before naming policy change
+%define oldlibname %mklibname spectrum 8
+%define libname	%mklibname spectrum
 %define devname	%mklibname spectrum -d
 
 Summary:	Library to work with ZX Spectrum emulator files
@@ -10,6 +12,7 @@ Group:		System/Libraries
 License:	GPLv2+
 Url:		https://fuse-emulator.sourceforge.net/
 Source0:	https://prdownloads.sourceforge.net/fuse-emulator/%{name}-%{version}.tar.gz
+Patch0:		libspectrum-no-Lusrlib.patch
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(audiofile)
@@ -31,6 +34,7 @@ handles:
 %package -n %{libname}
 Summary:	Library to work with ZX Spectrum emulator files
 Group:		System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 libspectrum is a library which is designed to make the input and
@@ -60,11 +64,13 @@ This package provides the necessary development libraries and include
 files to allow you to develop with libspectrum.
 
 %prep
-%setup -q
+%autosetup -p1
+autoreconf
+
+%conf
+%configure --disable-static
 
 %build
-autoreconf
-%configure --disable-static
 %make_build
 
 %install
@@ -78,4 +84,4 @@ autoreconf
 %{_libdir}/libspectrum.so
 %{_includedir}/%{name}.h
 %{_mandir}/man3/%{name}.3*
-
+%{_libdir}/pkgconfig/*.pc
