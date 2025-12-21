@@ -13,6 +13,11 @@ License:	GPLv2+
 Url:		https://fuse-emulator.sourceforge.net/
 Source0:	https://prdownloads.sourceforge.net/fuse-emulator/%{name}-%{version}.tar.gz
 Patch0:		libspectrum-no-Lusrlib.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(bzip2)
 BuildRequires:	pkgconfig(libgcrypt)
 BuildRequires:	pkgconfig(audiofile)
