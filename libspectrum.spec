@@ -6,7 +6,7 @@
 
 Summary:	Library to work with ZX Spectrum emulator files
 Name:		libspectrum
-Version:	1.5.0
+Version:	1.6.2
 Release:	1
 Group:		System/Libraries
 License:	GPLv2+
